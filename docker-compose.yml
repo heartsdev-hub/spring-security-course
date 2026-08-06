@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: jack
+      POSTGRES_DB: securityDB
+    ports:
+      - "5050:5432"
+    volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+  springSecurity:
+    build: .
+    container_name: spring-security-app
+    ports:
+      - "4040:9090"
+    depends_on:
+      - postgres
+    environment:
+        SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+        SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+        SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+volumes:
+  postgres_data:
