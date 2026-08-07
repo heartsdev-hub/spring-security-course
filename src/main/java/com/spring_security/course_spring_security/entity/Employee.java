@@ -20,18 +20,20 @@ import java.util.UUID;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public UUID id;
-    public String name;
+    private UUID id;
+    private String name;
+    private String email;
+    private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "employee_id",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
-    public List<Rol> roles = new ArrayList<>();
+    private List<Rol> roles = new ArrayList<>();
     @Column(updatable = false)
-    public LocalDate created_at;
-    public LocalDate updated_at;
+    private LocalDate created_at;
+    private LocalDate updated_at;
     @PrePersist
     public void onCreate(){
         this.created_at = LocalDate.now();

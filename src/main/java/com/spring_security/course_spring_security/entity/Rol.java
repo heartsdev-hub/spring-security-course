@@ -21,8 +21,8 @@ public class Rol {
     private UUID id;
     private String name;
     @Column(updatable = false)
-    public LocalDate created_at;
-    public LocalDate updated_at;
+    private LocalDate created_at;
+    private LocalDate updated_at;
     @PrePersist
     public void onCreate(){
         this.created_at = LocalDate.now();
