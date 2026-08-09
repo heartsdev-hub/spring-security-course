@@ -12,6 +12,7 @@ import com.spring_security.course_spring_security.exception.NotFoundException;
 import com.spring_security.course_spring_security.mapper.EmployeeMapper;
 import com.spring_security.course_spring_security.repository.EmployeeRepository;
 import com.spring_security.course_spring_security.repository.RolRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +23,13 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final RolRepository rolRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public EmployeeService(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, RolRepository rolRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
         this.rolRepository = rolRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     public ApiResult<List<EmployeeResponse>> allEmployee(){
         List<Employee> employees = employeeRepository.findAll();
@@ -59,6 +62,7 @@ public class EmployeeService {
             }
             employee.getRoles().add(rol);
         }
+        employee.setPassword(passwordEncoder.encode(employeeCreateRequest.getPassword()));
         Employee savedEmployee = employeeRepository.save(employee);
         return new ApiResult<>(
                 true,"Employee created successfully.",
