@@ -2,7 +2,7 @@ server:
   port: 7070
 spring:
   application:
-    name: course-spring-security
+    name: course-api
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5050/securityDB}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -16,5 +16,5 @@ spring:
         format_sql: true
 security:
   jwt:
-    secret-key: ${SECURITY_JWT_SECRET_KEY:bXktdmVyeS1zdHJvbmctc2VjcmV0LWtleS1mb3Itand0LXNpZ25pbmctMzItYnl0ZXM=}
-    expiration-time: ${SECURITY_JWT_EXPIRATION_TIME:3600000}
+    secretKey: ${SECURITY_JWT_SECRET_KEY:SkFDS09NQVJQRVJFWjEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MA==}
+    expirationTime: ${SECURITY_JWT_EXPIRATION_TIME:3600000}

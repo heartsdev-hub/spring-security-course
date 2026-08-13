@@ -11,16 +11,18 @@ services:
     volumes:
         - postgres_data:/var/lib/postgresql/data
 
-  springSecurity:
+  courseApi:
     build: .
-    container_name: spring-security-app
+    container_name: course-api-app
     ports:
-      - "4040:9090"
+      - "4040:7070"
     depends_on:
       - postgres
     environment:
         SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
         SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
         SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+        SECURITY_JWT_SECRET_KEY: ${SECURITY_JWT_SECRET_KEY}
+        SECURITY_JWT_EXPIRATION_TIME: ${SECURITY_JWT_EXPIRATION_TIME}
 volumes:
   postgres_data:
