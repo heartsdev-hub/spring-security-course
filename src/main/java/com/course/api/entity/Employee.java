@@ -28,7 +28,7 @@ public class Employee implements UserDetails {
     private String name;
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "employee_id",
             joinColumns = @JoinColumn(name = "employee_id"),

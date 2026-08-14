@@ -23,6 +23,7 @@ public class JwtService {
 
     @Value("${security.jwt.expirationTime}")
     private long expirationTime;
+
     // Extract username from token - this is the subject claim
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -35,15 +36,15 @@ public class JwtService {
     }
 
     // Generate token with just the user details
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(String username) {
+        return generateToken(new HashMap<>(), username);
     }
 
     // Generate token with extra claims (roles, permissions, etc.)
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public String generateToken(Map<String, Object> extraClaims, String username) {
         return Jwts.builder()
                 .claims(extraClaims)
-                .subject(userDetails.getUsername())
+                .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(getSigningKey())
